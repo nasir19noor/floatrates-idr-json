@@ -8,15 +8,6 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/detik-popular")
-def detik_popular():
-    response = requests.get("http://www.floatrates.com/daily/idr.json", params={"tag_from": "wp_cb_mostPopular_more"})
-    soup = BeautifulSoup(response.text, "html.parser")
-    popular_area = soup.find(attrs={"class": "grid-row list-content"})
-    titles = popular_area.findAll(attrs={"class": "media__title"})
-    images = popular_area.findAll(attrs={"class": "media__image"})
-    return render_template("index.html", images=images)
-
 @app.route("/floatrates-idr")
 def floatrates_idr():
     response = requests.get("http://www.floatrates.com/daily/idr.json")
